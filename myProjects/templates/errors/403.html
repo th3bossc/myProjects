@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %} 
+    <div class = "main-content">
+        <h2 class = "text-center">
+            Permission Denied (403)
+        </h2>
+        <p class = "text-center">
+            Check SignIn Details And Try Again!
+        </p>
+    </div>
+    <div class = 'main-content'>
+        <a href = "{{url_for('main.home')}}" class = "btn btn-danger" style = "width: 100%;">
+            Go Back To Home Page!
+        </a>
+    </div>
+{% endblock %}

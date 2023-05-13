@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link type = "text/css" rel = "stylesheet" href = "{{ url_for('static', filename = 'main.css')}}">
+        {% if title %}
+            <title> Th3BossC - {{title}}</title>
+        {% else %} 
+            <title> Th3BossC </title>
+        {% endif %}
+
+        <header>
+            <!-- <nav class="navbar fixed-top navbar-expand-lg" style = "background-color: #1f2833;"> -->
+            <nav class = "navbar fixed-top navbar-expand-lg border-bottom border-primary-subtle" style = "backdrop-filter: blur(30px);">
+                <div class="container-fluid"> 
+                    
+                    <a class="navbar-brand colour-me" href="{{url_for('main.home')}}"> MyProjects </a> 
+                    <button class="navbar-toggler border border-dark-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-arrow-down text-light"></i>
+                    </button> 
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link colour-me {% if title == 'Home' %} act {% endif %}" aria-current="page" href="{{url_for('main.home')}}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link colour-me {% if title == 'About' %} act {% endif %}" aria-current = "page" href="{{url_for('main.about')}}">About</a>
+                            </li>
+                        </ul>
+                        <ul class = "navbar-nav ms-auto mb-2 mb-lg-0">
+                            {% if current_user.is_authenticated == False %}
+                                <li class="nav-item">
+                                    <a class="nav-link colour-me" aria-current="page" href="{{url_for('users.register')}}">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link colour-me" aria-current = "page" href="{{url_for('users.login')}}">Login</a>
+                                </li>
+                            {% else %} 
+                                <li class="nav-item dropdown">
+                                    <button class="btn btn-primary bg-transparent dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Current User : {{current_user.username}}
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class = "dropdown-item" href = "{{url_for('posts.new_post')}}">Create New Project</a></li>
+                                        <li><a class = "dropdown-item" href = "{{url_for('users.user_post', username = current_user.username)}}">My Projects</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="{{url_for('users.profile')}}">Profile Settings</a></li>
+                                        <li><a class="dropdown-item" href= "{{url_for('users.logout')}}">Log Out</a></li>
+                                      </ul>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        
+    </head>
+    
+    <body>
+    <h1 class = "heading shadow-sm"> {{page_details}} </h1>
+        <main role = "main" class = "container">
+            <div class = "row">
+                <div class = "col-md-8">
+                    {%with messages = get_flashed_messages(with_categories = true)%}
+                  {% if messages %} 
+                    {% for category, message in messages %} 
+                      <div class = "alert alert-{{category}}">
+                        {{message}}
+                      </div>    
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+                {% block content%} {% endblock %}
+                </div>
+                <div class = "col-md-4">
+                    <div class = "content-section border border-dark-subtle shadow-lg">
+                        <h3 class = "text-center"> Quick Links </h3>
+                        <div class="card" style="width: 100%;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">An item</li>
+                                <li class="list-group-item">A second item</li>
+                                <li class="list-group-item">A third item</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    </body>
+
+    
+</html>

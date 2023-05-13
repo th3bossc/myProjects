@@ -1,0 +1,62 @@
+body {
+    margin-top : 100px;
+    /* background-color: #0b0c10; */
+    background-image: url('images/background.jpg');
+    background-size: cover;
+}
+
+
+
+.content-section {
+    padding : 15px 15px 15px 15px;
+    background-color: rgba(137, 196, 244, 1);
+    border-radius: 8px;
+    margin-top : 5px;
+    opacity: 0.8;
+}
+
+h1 {
+    writing-mode: vertical-lr;
+    transform: rotate(-180deg);
+    position: absolute;
+}
+
+
+.heading {
+    color : #66fcf1;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+.main-content {
+    padding : 15px 15px 15px 15px;
+    border-radius: 8px;
+    background-color: rgba(137, 196, 244, 1);
+    margin-top : 5px;
+}
+
+.image {
+    height: 100px;
+    width: 100px;
+    border-radius : 50px;
+    object-fit: cover;
+}
+
+.small-image {
+    height: 30px;
+    width: 30px;
+    border-radius : 15px;
+    object-fit: cover;
+}
+.colour-me {
+    color : #45a29e;
+}
+
+.act {
+    color : #66fcf1 !important;
+}
+
+.form-group {
+    padding : 10px
+}
+

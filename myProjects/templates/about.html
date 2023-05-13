@@ -1,0 +1,43 @@
+{% extends 'layout.html' %} 
+{% block content %} 
+<div class="main-content card mb-3" style="max-width: 100%;">
+    <div class="row g-0">
+      <div class="col-md-2">
+        <img src="{{url_for('static', filename = 'images/main-image.gif')}}" class="img-fluid image" alt="...">
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">Details</h5>
+          <p class="card-text">
+            Name : Diljith P D <br>
+            -Student at NIT <br>
+            -Member of AI Club NITC  <br>
+            <hr>
+            Contact Details <br>
+            Email : diljith2003@gmail.com <br>
+            Phone : +91 8075762993 <br>
+            <hr>
+          </p>
+          <small class = "text-muted">
+            Profiles:
+                <a href = "https://github.com/th3bossc" target = "_blank" class = "btn btn-sm  bg-transparent">
+                  <i class="bi bi-github"></i>
+                </a>
+                <a href = "https://www.linkedin.com/in/diljith-p-dileep-815716250" target = "_blank" class = "btn btn-sm bg-transparent">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = 'main-content'>
+    <div class = "text-center">
+      <a href = "https://github.com/th3bossc/myProjects" target = "_blank" class = "link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">
+        <span class = 'text-muted'>
+          Source Code to the current Website
+        </span>
+      </a>
+  </div>
+  </div>
+{% endblock %}
