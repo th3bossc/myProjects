@@ -31,6 +31,7 @@
                   </div>
             </blockquote>
         </div>
+        {% if current_user == post.author %}
         <hr>    
         <div class = "main-content">
             <a type="button" class="btn btn-primary" href = "{{url_for('posts.update_post', post_id = post.id)}}">
@@ -61,12 +62,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div> 
         </div>
+        {% endif %}
     </div>
-    
-    {% if current_user == post.author %}
-        
-    {% endif %}
 {% endblock %}

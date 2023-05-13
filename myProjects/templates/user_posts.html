@@ -41,7 +41,7 @@
                     </a>
                 </li>
               {% endfor %}
-              {% if posts.page != posts.total %}
+              {% if posts.next_num != none %}
               <li class="page-item">
                 <a class="page-link" href="{{url_for('users.user_post', username = user.username, page = posts.page+1)}}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
