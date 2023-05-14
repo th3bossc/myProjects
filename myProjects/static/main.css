@@ -31,8 +31,15 @@ h1 {
 .main-content {
     padding : 15px 15px 15px 15px;
     border-radius: 8px;
-    background-color: rgba(137, 196, 244, 1);
+    background-color: rgba(197, 239, 247, 1);
+    /* background-color: rgba(137, 196, 244, 1); */
     margin-top : 5px;
+}
+
+.main-content:hover {
+    transform: scale(1.01);
+    background: linear-gradient(rgba(0, 0, 0, 0.075), rgba(0, 0, 0, 0.075)), rgba(197, 239, 247, 1);
+    
 }
 
 .image {
@@ -59,4 +66,3 @@ h1 {
 .form-group {
     padding : 10px
 }
-
