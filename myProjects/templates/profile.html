@@ -59,8 +59,8 @@
                 </div>
 
                 <div class = "form-group">
-                  {{form.profile_image.label()}}
-                  {{form.profile_image(class = "form-control-file")}}
+                  {{form.profile_image.label(class = 'form-label', for = 'formFile')}}
+                  {{form.profile_image(class = "form-control", id = "formFile", type = 'file')}}
                   {% if form.profile_image.errors %}
                       {% for error in form.profile_image.errors %}
                           <span class = 'text-danger'> {{error}} </span></br>
