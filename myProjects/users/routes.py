@@ -1,14 +1,19 @@
-from flask import Blueprint, render_template, url_for, flash, redirect, request
+from flask import Blueprint, render_template, url_for, flash, redirect, request, current_app
 from myProjects.users.forms import RegistrationForm, RequestResetForm, ResetPasswordForm, LoginForm, ProfileUpdateForm
 from myProjects import bcrypt, db
 from flask_login import login_user, current_user, logout_user, login_required
 from myProjects.models import User, Post
 from myProjects.users.utils import save_picture, send_reset_mail
+import os
+import json
 users = Blueprint('users', __name__)
 
 
 @users.route('/register', methods = ['GET', 'POST'])
 def register():
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     
@@ -23,7 +28,7 @@ def register():
         flash(message = f"Account creation successful. Welcome {form.username.data}", category = 'success')
         return redirect(url_for('main.home')) 
 
-    return render_template('register.html', title = "Register", form = form, page_details = "Account Registration")
+    return render_template('register.html', title = "Register", form = form, page_details = "Account Registration", **leetcode)
     
     
 
@@ -31,6 +36,9 @@ def register():
 
 @users.route('/login', methods = ['GET', 'POST'])
 def login():
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     if current_user.is_authenticated:
         return redirect('users.profile')
     form = LoginForm()
@@ -42,7 +50,7 @@ def login():
             flash(message = "Successfully Logged In", category = 'success')
             return redirect(next_page) if next_page is not None else redirect(url_for('main.home'))
         flash(message = "Login Unsuccessful", category = "danger")
-    return render_template('login.html', title = "LogIn", form = form, page_details = "Account Login")
+    return render_template('login.html', title = "LogIn", form = form, page_details = "Account Login", **leetcode)
 
 
 @users.route('/logout')
@@ -55,6 +63,9 @@ def logout():
 @users.route('/profile', methods = ['GET', 'POST'])
 @login_required
 def profile():
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     #print(current_user)
     image_file = url_for('static', filename = 'images/' + current_user.image_file)
     print(image_file)
@@ -76,21 +87,27 @@ def profile():
         form.username.data = current_user.username
         form.email.data = current_user.email 
 
-    return render_template('profile.html', image_file = image_file, form = form, page_details = "Account Information")
+    return render_template('profile.html', image_file = image_file, form = form, page_details = "Account Information", **leetcode)
 
 
 @users.route('/users/<string:username>')
 def user_post(username):
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     page = request.args.get('page', default = 1, type = int)
     user = User.query.filter_by(username = username).first_or_404()
     posts = Post.query.filter_by(author = user).order_by(Post.date_posted.desc()).paginate(page = page, per_page = 5)
 
-    return render_template('user_posts.html', posts = posts, user = user, title = f"Posts by {user.username}", page_details = f"Posts by {user.username}")
+    return render_template('user_posts.html', posts = posts, user = user, title = f"Posts by {user.username}", page_details = f"Posts by {user.username}", **leetcode)
 
 
 
 @users.route('/reset_request', methods = ['GET', 'POST'])
 def reset_request():
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RequestResetForm()
@@ -102,10 +119,13 @@ def reset_request():
             send_reset_mail(user)
             flash(message = "Reset Link sent successfully. Please check your inbox", category = "info")
             return redirect(url_for('users.login'))
-    return render_template('reset_request.html', form = form, page_details = 'Reset Password')
+    return render_template('reset_request.html', form = form, page_details = 'Reset Password', **leetcode)
 
 @users.route('/reset_password/<string:token>', methods = ['GET', 'POST'])
 def reset_password(token):
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)
@@ -120,4 +140,4 @@ def reset_password(token):
         db.session.commit()
         flash(message = "Password has been reset successfully, Please login with new credentials", category = "info")
         return redirect(url_for('users.login'))
-    return render_template('reset_password.html', form = form, page_details = 'Reset Password')
+    return render_template('reset_password.html', form = form, page_details = 'Reset Password', **leetcode)

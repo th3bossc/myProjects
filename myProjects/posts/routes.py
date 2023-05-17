@@ -1,13 +1,18 @@
-from flask import Blueprint, request, flash, redirect, render_template, url_for, abort
+from flask import Blueprint, request, flash, redirect, render_template, url_for, abort, current_app
 from flask_login import current_user, login_required
 from myProjects.posts.forms import newPostForm
 from myProjects.models import Post
 from myProjects import db
+import os
+import json
 posts = Blueprint('posts', __name__) 
 
 @posts.route('/posts/new', methods = ['GET', 'POST'])
 @login_required
 def new_post():
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     form = newPostForm()
 
     if form.validate_on_submit():
@@ -21,18 +26,24 @@ def new_post():
         db.session.commit()
         flash(message = 'Post created successfully', category = "success")
         return redirect(url_for('posts.post', post_id = newPost.id))
-    return render_template('newpost.html', page_details = 'New Post', title = 'New Post', form = form, legend = "Create Post")
+    return render_template('newpost.html', page_details = 'New Post', title = 'New Post', form = form, legend = "Create Post", **leetcode)
 
 @posts.route('/posts/<int:post_id>')
 def post(post_id):
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     post = Post.query.get_or_404(post_id)
     print(post)
-    return render_template('post.html', post = post, page_details = f"Post by {post.author.username}")
+    return render_template('post.html', post = post, page_details = f"Post by {post.author.username}", **leetcode)
 
 
 @posts.route('/posts/<int:post_id>/update', methods = ['GET', 'POST'])
 @login_required
 def update_post(post_id):
+    leetcode = {}
+    with open(os.path.join(current_app.root_path + '/static/leetcode.json'), 'r') as json_file:
+        leetcode = json.load(json_file)
     post = Post.query.get_or_404(post_id)
 
     if post.author != current_user:
@@ -54,7 +65,7 @@ def update_post(post_id):
             form.link.data = post.link
         if post.source_code:
             form.source.data = post.source_code
-    return render_template('newpost.html', page_details = "Edit Post", title = "Edit Post",  form = form, post = post, legend = "Edit Post")
+    return render_template('newpost.html', page_details = "Edit Post", title = "Edit Post",  form = form, post = post, legend = "Edit Post", **leetcode)
 
 @posts.route('/posts/<int:post_id>/delete')
 @login_required

@@ -13,6 +13,22 @@
             <title> Th3BossC </title>
         {% endif %}
 
+        <style>
+            @keyframes moveEasy {
+                0%      {width : 0%;}
+                100%    {width : {{easyLen}}%;} 
+            }
+            @keyframes moveMed {
+                0%      {width : 0%;}
+                100%    {width : {mediumLen}%;}
+            }
+            @keyframes moveHard {
+                0%      {width : 0%;}
+                100%    {width : {{hardLen}}%;}
+
+            }
+        </style>
+
         <header>
             <!-- <nav class="navbar fixed-top navbar-expand-lg" style = "background-color: #1f2833;"> -->
             <nav class = "navbar fixed-top navbar-expand-lg border-bottom border-primary-subtle" style = "backdrop-filter: blur(30px);">
@@ -80,12 +96,56 @@
                 </div>
                 <div class = "col-md-4">
                     <div class = "content-section border border-dark-subtle shadow-lg">
-                        <h3 class = "text-center"> Quick Links </h3>
+                        <h3 class = "text-center"> Leetcode Stats </h3>
                         <div class="card" style="width: 100%;">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">An item</li>
-                                <li class="list-group-item">A second item</li>
-                                <li class="list-group-item">A third item</li>
+                                <li class = "list-group-item">
+                                    <div class = 'text-center'>
+                                        <span class = 'font-weight-bold'>
+                                            Username : Th3BossC
+                                        </span>
+                                        <span class = 'font-weight-bold'>
+                                            ( {{totalSolved}} solved /
+                                        </span>
+                                        <small class = 'text-muted'>
+                                            {{totalQuestions}} ) 
+                                        </small>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class = 'font-weight-bold'>
+                                        Easy : {{easySolved}} /
+                                    </span>
+                                    <small class = 'text-muted'>
+                                        {{totalEasy}}
+                                    </small>
+                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-success" style="width: {{easyLen}}%; animation: moveEasy 1s;"></div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class = 'font-weight-bold'>
+                                        Medium : {{mediumSolved}} /
+                                    </span>
+                                    <small class = 'text-muted'>
+                                        {{totalMedium}}
+                                    </small>
+                                    
+                                    <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-warning" style="width: {{mediumLen}}%; animation: moveMed 1s;"></div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class = 'font-weight-bold'>
+                                        Hard : {{hardSolved}} /
+                                    </span>
+                                    <small class = 'text-muted'>
+                                        {{totalHard}}
+                                    </small>
+                                    <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-danger" style = "width : {{hardLen}}%; animation: moveHard 1s;"></div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
