@@ -4,14 +4,14 @@ import requests
 app = create_app()
 
 
-# if __name__ == '__main__':
-#     app.run(debug = True)
+if __name__ == '__main__':
+    app.run(debug = True)
 
-def run():
-    app.run(host = '0.0.0.0', port = 8000)
+# def run():
+#     app.run(host = '0.0.0.0', port = 8000)
 
-def keep_alive():
-    t = Thread(target = run)
-    t.start()
+# def keep_alive():
+#     t = Thread(target = run)
+#     t.start()
 
-keep_alive()
+# keep_alive()
